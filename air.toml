@@ -1,0 +1,12 @@
+
+# air.toml
+
+[build]
+bin = "main"
+
+[log]
+mode = "file"
+
+[[targets]]
+dir = "."
+command = "go run main.go"
