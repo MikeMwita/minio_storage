@@ -11,7 +11,6 @@ import (
 func CreateBucket(c *fiber.Ctx) error {
 	ctx := context.Background()
 	bucketName := c.Params("bucketName")
-	// Create minio connection.
 	minioClient, err := minioUpload.MinioConnection()
 	if err != nil {
 		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
@@ -19,7 +18,6 @@ func CreateBucket(c *fiber.Ctx) error {
 			"msg":   err.Error(),
 		})
 	}
-
 	opts := minio.MakeBucketOptions{
 		Region:        "us-east-1",
 		ObjectLocking: true,
