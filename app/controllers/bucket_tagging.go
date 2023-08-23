@@ -8,25 +8,10 @@ import (
 	"github.com/minio/minio-go/v7/pkg/tags"
 )
 
-//// Create tags from a map.
-//tags, err := tags.NewTags(map[string]string{
-//"Tag1": "Value1",
-//"Tag2": "Value2",
-//}, false)
-//if err != nil {
-//log.Fatalln(err)
-//}
-//
-//err = minioClient.SetBucketTagging(context.Background(), "my-bucketname", tags)
-//if err != nil {
-//log.Fatalln(err)
-//}
-
 // set bucket tagging
 func SetBucketTagging(c *fiber.Ctx) error {
 	ctx := context.Background()
 	bucketName := c.Params("bucketName")
-	// Create minio connection.
 	minioClient, err := minioUpload.MinioConnection()
 	if err != nil {
 		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
