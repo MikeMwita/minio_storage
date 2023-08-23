@@ -19,9 +19,7 @@ func UploadFile(c *fiber.Ctx) error {
 			"msg":   err.Error(),
 		})
 	}
-	// Get Buffer from file
 	buffer, err := file.Open()
-
 	if err != nil {
 		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
 			"error": true,
@@ -29,11 +27,8 @@ func UploadFile(c *fiber.Ctx) error {
 		})
 	}
 	defer buffer.Close()
-
-	// Create minio connection.
 	minioClient, err := minioUpload.MinioConnection()
 	if err != nil {
-		// Return status 500 and minio connection error.
 		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
 			"error": true,
 			"msg":   err.Error(),
@@ -43,8 +38,6 @@ func UploadFile(c *fiber.Ctx) error {
 	fileBuffer := buffer
 	contentType := file.Header["Content-Type"][0]
 	fileSize := file.Size
-
-	// Upload the zip file with PutObject
 	info, err := minioClient.PutObject(ctx, bucketName, objectName, fileBuffer, fileSize, minio.PutObjectOptions{ContentType: contentType})
 	if err != nil {
 		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
