@@ -25,5 +25,10 @@ func PublicRoutes(a *fiber.App) {
 	route.Get("/get-object/:bucketName/:objectName", controllers.GetObject)
 	route.Get("/fget-object/:bucketName/:objectName/:filePath", controllers.FGetObject)
 	route.Post("/put-object/:bucketName/:objectName", controllers.PutObject)
+	route.Post("/restore-object/:bucketName/:objectName/:versionID", controllers.RestoreObject)
+	route.Get("/get-bucket-encryption/:bucketName", controllers.GetBucketEncryption)
+	route.Post("/remove-bucket-encryption/:bucketName", controllers.RemoveBucketEncryption)
+	route.Post("/set-bucket-policy/:bucketName", controllers.SetBucketPolicy)
+	route.Get("/get-bucket-policy/:bucketName", controllers.GetBucketPolicy)
 
 }
