@@ -135,3 +135,44 @@ func PutObject(c *fiber.Ctx) error {
 		"info":  uploadInfo,
 	})
 }
+
+//restore object
+
+func RestoreObject(c *fiber.Ctx) error {
+	ctx := context.Background()
+	bucketName := c.Params("bucketName")
+	objectName := c.Params("objectName")
+	versionID := c.Params("versionID")
+
+	// Create a RestoreRequest with desired options
+	opts := minio.RestoreRequest{}
+	opts.SetDays(1)
+	opts.SetGlacierJobParameters(minio.GlacierJobParameters{Tier: minio.TierStandard})
+	minioClient, err := minioUpload.MinioConnection()
+	if err != nil {
+		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
+			"error": true,
+			"msg":   err.Error(),
+		})
+	}
+
+	// Restore the object
+	err = minioClient.RestoreObject(
+		ctx,
+		bucketName,
+		objectName,
+		versionID,
+		opts,
+	)
+	if err != nil {
+		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
+			"error": true,
+			"msg":   err.Error(),
+		})
+	}
+
+	return c.JSON(fiber.Map{
+		"error": false,
+		"msg":   "Object restoration initiated successfully.",
+	})
+}
