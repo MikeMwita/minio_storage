@@ -3,11 +3,17 @@ package routes
 import (
 	"github.com/Filtronic/Minio/app/controllers"
 	"github.com/gofiber/fiber/v2"
+	"gorm.io/gorm"
 )
 
-func PublicRoutes(a *fiber.App) {
+func PublicRoutes(a *fiber.App, db *gorm.DB) {
 	route := a.Group("/api/v1")
-	route.Post("/upload", controllers.UploadFile)
+
+	route.Post("/upload", func(c *fiber.Ctx) error {
+		return controllers.UploadFile(c, db)
+	})
+	route.Get("/get-file-metadata", controllers.GetFileMetadata)
+	//route.Post("/upload", controllers.UploadFile)
 	route.Get("/list-buckets", controllers.ListBuckets)
 	route.Delete("/remove-bucket/:bucketName", controllers.RemoveBucket)
 	route.Get("/list-incomplete-uploads/:bucketName", controllers.ListIncompleteUploads)
