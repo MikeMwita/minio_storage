@@ -29,7 +29,7 @@ func GetObject(c *fiber.Ctx) error {
 		})
 	}
 	defer object.Close()
-	localFilePath := fmt.Sprintf("/tmp/%s", objectName) // Specify the local file path
+	localFilePath := fmt.Sprintf("/tmp/%s", objectName)
 	localFile, err := os.Create(localFilePath)
 	if err != nil {
 		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
