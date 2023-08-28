@@ -7,7 +7,6 @@ import (
 
 func PublicRoutes(a *fiber.App) {
 	route := a.Group("/api/v1")
-
 	route.Post("/upload", controllers.UploadFile)
 	route.Get("/list-buckets", controllers.ListBuckets)
 	route.Delete("/remove-bucket/:bucketName", controllers.RemoveBucket)
@@ -18,7 +17,6 @@ func PublicRoutes(a *fiber.App) {
 	route.Delete("/remove-bucket-tagging/:bucketName", controllers.RemoveBucketTagging)
 	route.Post("/set-bucket-replication/:bucketName", controllers.SetBucketReplication)
 	route.Post("/enable-versioning/:bucketName", controllers.EnableVersioning)
-	//route.Post("/disable-versioning/:bucketName", controllers.DisableVersioning)
 	route.Get("/get-bucket-replication/:bucketName", controllers.GetBucketReplication)
 	route.Post("/remove-bucket-replication/:bucketName", controllers.RemoveBucketReplication)
 	route.Get("/get-bucket-replication-metrics/:bucketName", controllers.GetBucketReplicationMetrics)
