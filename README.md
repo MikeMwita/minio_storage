@@ -1,8 +1,7 @@
-# Fiber backend template for [Create Go App CLI](https://github.com/create-go-app/cli)
+# File Server Management System
 
 <img src="https://img.shields.io/badge/Go-1.19+-00ADD8?style=for-the-badge&logo=go" alt="go version" />&nbsp;<a href="https://goreportcard.com/report/github.com/create-go-app/fiber-go-template" target="_blank"><img src="https://img.shields.io/badge/Go_report-A+-success?style=for-the-badge&logo=none" alt="go report" /></a>&nbsp;<img src="https://img.shields.io/badge/license-Apache_2.0-red?style=for-the-badge&logo=none" alt="license" />
 
-[Fiber](https://gofiber.io/) is an Express.js inspired web framework build on top of Fasthttp, the fastest HTTP engine for Go. Designed to ease things up for **fast** development with **zero memory allocation** and **performance** in mind.
 
 ## ⚡️ Quick start
 
@@ -21,7 +20,6 @@ cgapp create
 3. Install [Docker](https://www.docker.com/get-started) and the following useful Go tools to your system:
 
    - [golang-migrate/migrate](https://github.com/golang-migrate/migrate#cli-usage) for apply migrations
-   - [github.com/swaggo/swag](https://github.com/swaggo/swag) for auto-generating Swagger API docs
    - [github.com/securego/gosec](https://github.com/securego/gosec) for checking Go security issues
    - [github.com/go-critic/go-critic](https://github.com/go-critic/go-critic) for checking Go the best practice issues
    - [github.com/golangci/golangci-lint](https://github.com/golangci/golangci-lint) for checking Go linter issues
@@ -31,10 +29,6 @@ cgapp create
 ```bash
 make docker.run
 ```
-
-5. Go to API Docs page (Swagger): [127.0.0.1:5000/swagger/index.html](http://127.0.0.1:5000/swagger/index.html)
-
-![Screenshot](https://user-images.githubusercontent.com/11155743/112715187-07dab100-8ef0-11eb-97ea-68d34f2178f6.png)
 
 ## 🗄 Template structure
 
@@ -68,46 +62,6 @@ make docker.run
 - `./platform/database` folder with database setup functions (by default, PostgreSQL)
 - `./platform/migrations` folder with migration files (used with [golang-migrate/migrate](https://github.com/golang-migrate/migrate) tool)
 
-## ⚙️ Configuration
-
-```ini
-# .env
-
-# Stage status to start server:
-#   - "dev", for start server without graceful shutdown
-#   - "prod", for start server with graceful shutdown
-STAGE_STATUS="dev"
-
-# Server settings:
-SERVER_HOST="0.0.0.0"
-SERVER_PORT=5000
-SERVER_READ_TIMEOUT=60
-
-# JWT settings:
-JWT_SECRET_KEY="secret"
-JWT_SECRET_KEY_EXPIRE_MINUTES_COUNT=15
-JWT_REFRESH_KEY="refresh"
-JWT_REFRESH_KEY_EXPIRE_HOURS_COUNT=720
-
-# Database settings:
-DB_TYPE="pgx"   # pgx or mysql
-DB_HOST="cgapp-postgres"
-DB_PORT=5432
-DB_USER="postgres"
-DB_PASSWORD="password"
-DB_NAME="postgres"
-DB_SSL_MODE="disable"
-DB_MAX_CONNECTIONS=100
-DB_MAX_IDLE_CONNECTIONS=10
-DB_MAX_LIFETIME_CONNECTIONS=2
-
-# Redis settings:
-REDIS_HOST="cgapp-redis"
-REDIS_PORT=6379
-REDIS_PASSWORD=""
-REDIS_DB_NUMBER=0
-```
-
 ## ⚠️ License
 
-Apache 2.0 &copy; [Vic Shóstak](https://shostak.dev/) & [True web artisans](https://1wa.co/).
+Apache 2.0 &copy; [MikeMwita](https://shostak.dev/)
