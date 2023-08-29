@@ -10,6 +10,8 @@ type FileMetadata struct {
 	FileName   string
 	UploaderID int
 	UploadTime time.Time
+	ETag       string
+	VersionID  string
 }
 
 func CreateFileMetadata(db *gorm.DB, metadata FileMetadata) error {
