@@ -21,10 +21,6 @@ test: clean critic security lint
 	go test -v -timeout 30s -coverprofile=cover.out -cover ./...
 	go tool cover -func=cover.out
 
-
-docker:
-	docker run --name some-postgres -e POSTGRES_PASSWORD=password -d postgres
-
 postgres:
 	docker run --name filtronicdb -p 5432:5432 -e POSTGRES_USER=filtronic -e POSTGRES_PASSWORD=secret -d postgres:16beta3
 
@@ -61,7 +57,7 @@ docker.stop.fiber:
 
 
 
-
+.PHONY: docker.run docker.network docker.fiber.build docker.fiber docker.stop docker.stop.fiber
 
 
 
