@@ -1,0 +1,21 @@
+version: '3'
+services:
+  minio:
+    image: minio/minio:latest
+  api:
+    build:
+      dockerfile: Dockerfile
+      context: ./api
+    volumes:
+      - ./api:/app
+    environment:
+        - MINIO_ACCESS_KEY=root
+        - MINIO_SECRET_KEY=xyz
+  nginx:
+   restart: always
+   build:
+        dockerfile: Dockerfile.Dev
+        context: ./nginx
+
+   ports:
+     - "3050:80"

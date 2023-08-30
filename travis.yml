@@ -1,0 +1,18 @@
+sudo: required
+services:
+  - docker
+
+before_install:
+    - docker build -t MikeMwita/docker-filtronic -f ./nginx/Dockerfile.dev .
+
+#script sec is primary test running sec
+script:
+    - docker run MikeMwita/docker-filtronicnpm run test --- --coverage
+
+after_success:
+    - docker build -t MikeMwita/docker-filtronic ./api
+    - docker build -t MikeMwita/docker-filtronic ./nginx
+    # Log in to the docker CLI
+    - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+    # Take those images and push them to docker hub
+    - docker push MikeMwita/docker-filtronic
