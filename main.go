@@ -1,23 +1,3 @@
-//package main
-//
-//import (
-//	"github.com/Filtronic/Minio/pkg/configs"
-//	"github.com/Filtronic/Minio/pkg/routes"
-//	"github.com/Filtronic/Minio/pkg/utils"
-//	"github.com/gofiber/fiber/v2"
-//	_ "github.com/joho/godotenv/autoload"
-//)
-//
-//func main() {
-//
-//	config := configs.FiberConfig()
-//	// Define a new Fiber app with config.
-//	app := fiber.New(config)
-//	routes.PublicRoutes(app)
-//	utils.StartServer(app)
-//
-//}
-
 package main
 
 import (
@@ -47,7 +27,6 @@ func initDB() *gorm.DB {
 	if err != nil {
 		panic("Failed to connect to the database")
 	}
-	db.AutoMigrate(&models.FileMetadata{})
-
+	db.AutoMigrate(&models.FileMetadata{}, &models.BucketMetadata{})
 	return db
 }
