@@ -1,6 +1,7 @@
 module github.com/Filtronic/Minio
 
-go 1.21rc2
+go 1.21
+
 
 require (
 	github.com/gofiber/fiber/v2 v2.48.0
