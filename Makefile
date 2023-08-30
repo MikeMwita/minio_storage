@@ -26,10 +26,9 @@ postgres:
 
 createdb:
 	docker exec -it filtronicdb createdb --username=filtronic --owner=filtronic edms
-#
-#docker-compose:
-#	docker-compose -f docker_compose.yml up
 
+docker-compose:
+	docker-compose up --build
 docker.run: docker.network   docker.fiber
 
 docker.network:
@@ -46,14 +45,10 @@ docker.fiber: docker.fiber.build
 		-p 5000:5000 \
 		fiber
 
-
 docker.stop: docker.stop.fiber
 
 docker.stop.fiber:
 	docker stop cgapp-fiber
-
-
-
 
 
 
