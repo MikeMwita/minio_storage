@@ -5,7 +5,7 @@ services:
   api:
     build:
       dockerfile: Dockerfile
-      context: ./api
+      context: ./
     volumes:
       - ./api:/app
     environment:
@@ -14,7 +14,7 @@ services:
   nginx:
    restart: always
    build:
-        dockerfile: Dockerfile.Dev
+        dockerfile: Dockerfile.dev
         context: ./nginx
 
    ports:
