@@ -45,7 +45,6 @@ func GetObject(c *fiber.Ctx) error {
 			"msg":   err.Error(),
 		})
 	}
-
 	return c.JSON(fiber.Map{
 		"error":   false,
 		"message": fmt.Sprintf("Object '%s' downloaded to '%s'", objectName, localFilePath),
@@ -59,7 +58,7 @@ func FGetObject(c *fiber.Ctx) error {
 	bucketName := c.Params("bucketName")
 	objectName := c.Params("objectName")
 	filePath := c.Params("filePath")
-	// Create minio connection.
+
 	minioClient, err := minioUpload.MinioConnection()
 	if err != nil {
 		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
@@ -75,7 +74,6 @@ func FGetObject(c *fiber.Ctx) error {
 			"msg":   err.Error(),
 		})
 	}
-
 	return c.JSON(fiber.Map{
 		"error":   false,
 		"message": fmt.Sprintf("Object '%s' downloaded and saved to '%s'", objectName, filePath),
