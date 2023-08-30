@@ -19,18 +19,6 @@ func MinioConnection() (*minio.Client, error) {
 	if errInit != nil {
 		log.Fatalln(errInit)
 	}
-	//bucketName := "filtronic"
-	//location := "us-east-1"
-	////err := minioClient.MakeBucket(ctx, bucketName, minio.MakeBucketOptions{Region: location})
-	//if err != nil {
-	//	exists, errBucketExists := minioClient.BucketExists(ctx, bucketName)
-	//	if errBucketExists == nil && exists {
-	//		log.Printf("We already own %s\n", bucketName)
-	//	} else {
-	//		log.Fatalln(err)
-	//	}
-	//} else {
-	//	log.Printf("Successfully created %s\n", bucketName)
-	//}
+
 	return minioClient, errInit
 }
