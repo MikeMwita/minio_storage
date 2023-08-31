@@ -1,0 +1,19 @@
+syntax = "proto3";
+package pb;
+
+option go_package = "github.com/Filtronic/Minio/gapi/pb";
+
+
+message RemoveBucketRequest {
+  string bucket_name = 1;
+}
+
+message RemoveBucketResponse {
+  bool success = 1;
+  string message = 2;
+  string bucket_name = 3;
+  string bucket_tag = 4;
+  string unique_id = 5;
+}
+
+
