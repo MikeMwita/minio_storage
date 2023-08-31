@@ -8,7 +8,6 @@ import (
 
 func PublicRoutes(a *fiber.App, db *gorm.DB) {
 	route := a.Group("/api/v1")
-
 	route.Post("/upload", func(c *fiber.Ctx) error {
 		return controllers.UploadFile(c, db)
 	})
