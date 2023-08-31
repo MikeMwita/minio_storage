@@ -9,13 +9,22 @@ services:
     volumes:
       - ./api:/app
     environment:
-        - MINIO_ACCESS_KEY=root
-        - MINIO_SECRET_KEY=xyz
+        - MINIO_ACCESS_KEY=Vd2DlMhoe1W4QKbSQDLw
+        - MINIO_SECRET_KEY=FTaNk44w4GQIwo2jdv6zyGUL5KiDUHvj9LVyroE3
+    depends_on:
+      - postgres
+  postgres:
+    image: postgres:16beta3
+    environment:
+      POSTGRES_USER: filtronic
+      POSTGRES_PASSWORD: secret
+      POSTGRES_DB: edms
   nginx:
    restart: always
    build:
         dockerfile: Dockerfile.dev
         context: ./nginx
-
    ports:
      - "3050:80"
+
+
