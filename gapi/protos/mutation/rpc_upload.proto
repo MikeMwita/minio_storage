@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+package pb;
+
+import "file.proto";
+option go_package = "github.com/Filtronic/Minio/proto/pb";
+
+
+message UploadFileRequest {
+  FileContent file_content = 1;
+}
+
+message UploadFileResponse {
+  bool success = 1;
+  string message = 2;
+  string etag = 3;
+  string version_id = 4;
+}

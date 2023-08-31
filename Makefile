@@ -52,6 +52,17 @@ docker.stop.fiber:
 
 
 
+proto:
+	protoc --proto_path=gapi/protos/mutation \
+      --go_out=gapi/pb/mutation_gen \
+      --go_opt=paths=source_relative \
+      --go-grpc_out=gapi/pb/mutation_gen \
+      --go-grpc_opt=paths=source_relative \
+      gapi/protos/mutation/*.proto
+
+
+
+
 .PHONY: docker.run docker.network docker.fiber.build docker.fiber docker.stop docker.stop.fiber
 
 
