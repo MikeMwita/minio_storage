@@ -1,9 +1,9 @@
 syntax = "proto3";
 
 package pb;
-
 import "file.proto";
-option go_package = "github.com/Filtronic/Minio/proto/pb";
+
+option go_package = "github.com/Filtronic/Minio/gapi/pb";
 
 
 message UploadFileRequest {
