@@ -40,7 +40,6 @@ import (
 //	<-idleConnsClosed
 //}
 
-// StartServer func for starting a simple server.
 func StartServer(a *fiber.App) {
 	// Build Fiber connection URL.
 	//fiberConnURL, _ := ConnectionURLBuilder("fiber")
