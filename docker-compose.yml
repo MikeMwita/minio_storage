@@ -2,6 +2,16 @@ version: '3'
 services:
   minio:
     image: minio/minio:latest
+
+#  postgres:
+#    image: postgres:16beta3
+#    environment:
+#      POSTGRES_USER: filtronic
+#      POSTGRES_PASSWORD: secret
+#      POSTGRES_DB: edms
+#    ports:
+#      - "5432:5432"
+
   api:
     build:
       dockerfile: Dockerfile
@@ -9,22 +19,21 @@ services:
     volumes:
       - ./api:/app
     environment:
-        - MINIO_ACCESS_KEY=Vd2DlMhoe1W4QKbSQDLw
-        - MINIO_SECRET_KEY=FTaNk44w4GQIwo2jdv6zyGUL5KiDUHvj9LVyroE3
-    depends_on:
-      - postgres
-  postgres:
-    image: postgres:16beta3
-    environment:
-      POSTGRES_USER: filtronic
-      POSTGRES_PASSWORD: secret
-      POSTGRES_DB: edms
+      - MINIO_ACCESS_KEY=Vd2DlMhoe1W4QKbSQDLw
+      - MINIO_SECRET_KEY=FTaNk44w4GQIwo2jdv6zyGUL5KiDUHvj9LVyroE3
+#      - MINIO_HOST=postgres
+#    depends_on:
+#      - postgres
+
+
+
   nginx:
-   restart: always
-   build:
-        dockerfile: Dockerfile.dev
-        context: ./nginx
-   ports:
-     - "3050:80"
+    restart: always
+    build:
+      dockerfile: Dockerfile.dev
+      context: ./nginx
+    ports:
+      - "3050:80"
 
-
+networks:
+  minio-net:
