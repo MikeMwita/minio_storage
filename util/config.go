@@ -1,6 +1,9 @@
 package util
 
-import "github.com/spf13/viper"
+import (
+	"github.com/gofiber/fiber/v2/log"
+	"github.com/spf13/viper"
+)
 
 type Config struct {
 	HTTPServerAddress string `mapstructure:"HTTP_SERVER_ADDRESS"`
@@ -8,17 +11,25 @@ type Config struct {
 }
 
 func LoadConfig(path string) (config Config, err error) {
-	viper.AddConfigPath(path)
-	viper.SetConfigName("app")
-	viper.SetConfigType("env")
-
+	//viper.AddConfigPath(path)
+	//viper.SetConfigName("app")
+	viper.SetConfigFile(".env")
 	viper.AutomaticEnv()
-
-	err = viper.ReadInConfig()
-	if err != nil {
-		return
+	if err := viper.ReadInConfig(); err != nil {
+		log.Fatalf("Error reading .env file: %v", err)
 	}
 
-	err = viper.Unmarshal(&config)
-	return
+	// Unmarshal the configuration into the Config struct
+	if err := viper.Unmarshal(&config); err != nil {
+		log.Fatalf("Error unmarshalling configuration: %v", err)
+	}
+
+	return config, nil
+	//err = viper.ReadInConfig()
+	//if err != nil {
+	//	return
+	//}
+	//
+	//err = viper.Unmarshal(&config)
+	//return
 }
