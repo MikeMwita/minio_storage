@@ -58,9 +58,13 @@ proto:
       --go_opt=paths=source_relative \
       --go-grpc_out=gapi/pb/mutation_gen \
       --go-grpc_opt=paths=source_relative \
+      --grpc-gateway_out=gapi/pb/mutation_gen \
+      --grpc-gateway_opt=paths=source_relative \
       gapi/protos/mutation/*.proto
 
 
+evans:
+	evans --host localhost --port 5000 -reflection repl
 
 
 .PHONY: docker.run docker.network docker.fiber.build docker.fiber docker.stop docker.stop.fiber
