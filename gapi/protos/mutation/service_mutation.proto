@@ -5,12 +5,28 @@ package pb;
 import "rpc_upload.proto";
 import "rpc_createbucket.proto";
 import "rpc_removebucket.proto";
+import "google/api/annotations.proto";
 
 option go_package = "github.com/Filtronic/Minio/gapi/pb";
 
 
 service MutationService {
-  rpc UploadFile(UploadFileRequest) returns (UploadFileResponse);
-  rpc CreateBucket(CreateBucketRequest) returns (CreateBucketResponse);
-  rpc RemoveBucket(RemoveBucketRequest) returns (RemoveBucketResponse);
+  rpc UploadFile(UploadFileRequest) returns (UploadFileResponse){
+    option (google.api.http) = {
+      post: "/v1/uploadfile"
+      body: "*"
+    };
+  }
+  rpc CreateBucket(CreateBucketRequest) returns (CreateBucketResponse){
+    option (google.api.http) = {
+      post: "/v1/createbucket"
+      body: "*"
+    };
+  }
+  rpc RemoveBucket(RemoveBucketRequest) returns (RemoveBucketResponse){
+    option (google.api.http) = {
+      post: "/v1/removebucket"
+      body: "*"
+    };
+  }
 }
