@@ -1,6 +1,7 @@
 package main
 
 import (
+	"context"
 	"github.com/Filtronic/Minio/app/models"
 	"github.com/Filtronic/Minio/gapi/core/grpc_handlers"
 	pb "github.com/Filtronic/Minio/gapi/pb/mutation_gen"
@@ -9,6 +10,7 @@ import (
 	"github.com/Filtronic/Minio/pkg/utils"
 	"github.com/Filtronic/Minio/util"
 	"github.com/gofiber/fiber/v2"
+	"github.com/grpc-ecosystem/grpc-gateway/v2/runtime"
 	_ "github.com/joho/godotenv/autoload"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/reflection"
@@ -16,6 +18,7 @@ import (
 	"gorm.io/gorm"
 	"log"
 	"net"
+	"net/http"
 )
 
 var db *gorm.DB
@@ -32,9 +35,11 @@ func main() {
 		log.Fatal("cannot load config:", err)
 	}
 	runGrpcServer(configGrpc)
+	go runGatewayServer(configGrpc)
 }
 
 func initDB() *gorm.DB {
+	//dsn := "host=postgres user=filtronic dbname=edms sslmode=disable password=secret"
 	dsn := "host=localhost user=filtronic dbname=edms sslmode=disable password=secret"
 	db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
 	if err != nil {
@@ -54,7 +59,7 @@ func runGrpcServer(config util.Config) {
 	pb.RegisterMutationServiceServer(grpcServer, server)
 	reflection.Register(grpcServer)
 
-	listener, err := net.Listen("tcp", config.GRPCServerAddress)
+	listener, err := net.Listen("tcp", ":9090")
 	if err != nil {
 		log.Fatal("Unable to start the listener: ", err)
 	}
@@ -64,5 +69,35 @@ func runGrpcServer(config util.Config) {
 	err = grpcServer.Serve(listener)
 	if err != nil {
 		log.Fatal("Unable to start the gRPC server: ", err)
+	}
+}
+
+func runGatewayServer(config util.Config) {
+
+	server, err := grpc_handlers.NewServer(config)
+	if err != nil {
+		log.Fatal("cannot create grpc server:", err)
+	}
+	grpcMux := runtime.NewServeMux()
+	ctx, cancel := context.WithCancel(context.Background())
+	defer cancel()
+
+	err = pb.RegisterMutationServiceHandlerServer(ctx, grpcMux, server)
+	if err != nil {
+		log.Fatal("cannot register handler server", err)
+	}
+	mux := http.NewServeMux()
+	mux.Handle("/", grpcMux)
+
+	listener, err := net.Listen("tcp", config.HTTPServerAddress)
+	if err != nil {
+		log.Fatal("Unable to create the listener :", err)
+	}
+	log.Printf("Starting http server on %s\n", listener.Addr().String())
+
+	//start the server
+	err = http.Serve(listener, mux)
+	if err != nil {
+		log.Fatal("Unable to start the http server: ", err)
 	}
 }
