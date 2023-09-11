@@ -35,11 +35,10 @@ func main() {
 		log.Fatal("cannot load config:", err)
 	}
 	runGrpcServer(configGrpc)
-	go runGatewayServer(configGrpc)
+	go runGatewayServer(configGrpc, db)
 }
 
 func initDB() *gorm.DB {
-	//dsn := "host=postgres user=filtronic dbname=edms sslmode=disable password=secret"
 	dsn := "host=localhost user=filtronic dbname=edms sslmode=disable password=secret"
 	db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
 	if err != nil {
@@ -72,7 +71,7 @@ func runGrpcServer(config util.Config) {
 	}
 }
 
-func runGatewayServer(config util.Config) {
+func runGatewayServer(config util.Config, db *gorm.DB) {
 
 	server, err := grpc_handlers.NewServer(config)
 	if err != nil {
@@ -94,8 +93,6 @@ func runGatewayServer(config util.Config) {
 		log.Fatal("Unable to create the listener :", err)
 	}
 	log.Printf("Starting http server on %s\n", listener.Addr().String())
-
-	//start the server
 	err = http.Serve(listener, mux)
 	if err != nil {
 		log.Fatal("Unable to start the http server: ", err)
