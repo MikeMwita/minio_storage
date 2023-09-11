@@ -64,7 +64,7 @@ proto:
 
 
 evans:
-	evans --host localhost --port 5000 -reflection repl
+	evans --host localhost --port 9090 -r repl
 
 
 .PHONY: docker.run docker.network docker.fiber.build docker.fiber docker.stop docker.stop.fiber
