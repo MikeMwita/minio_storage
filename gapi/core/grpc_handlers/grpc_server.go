@@ -17,6 +17,5 @@ func NewServer(config util.Config) (*grpcServer, error) {
 	server := &grpcServer{
 		config: config,
 	}
-
 	return server, nil
 }
