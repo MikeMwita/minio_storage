@@ -56,6 +56,7 @@ func (x *CreateBucketRequest) ProtoReflect() protoreflect.Message {
 }
 
 // Deprecated: Use CreateBucketRequest.ProtoReflect.Descriptor instead.
+
 func (*CreateBucketRequest) Descriptor() ([]byte, []int) {
 	return file_rpc_createbucket_proto_rawDescGZIP(), []int{0}
 }
