@@ -1,4 +1,4 @@
-job "collections-ui" {
+job "minio_fileserver" {
   // Specifies the datacenter where this job should be run
   // This can be omitted and it will default to ["*"]
   datacenters = ["*"]
@@ -25,6 +25,7 @@ job "collections-ui" {
     service {
       provider = "nomad"
       port     = "rest"
+      name = "minio-fileserver"
     }
 
     // Tasks are individual units of work that are run by Nomad.
