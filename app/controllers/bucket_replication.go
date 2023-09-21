@@ -129,6 +129,7 @@ func RemoveBucketReplication(c *fiber.Ctx) error {
 }
 
 // get bucket replication metrics
+
 func GetBucketReplicationMetrics(c *fiber.Ctx) error {
 	ctx := context.Background()
 	bucketName := c.Params("bucketName")
