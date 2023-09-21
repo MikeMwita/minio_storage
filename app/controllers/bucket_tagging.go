@@ -9,6 +9,7 @@ import (
 )
 
 // set bucket tagging
+
 func SetBucketTagging(c *fiber.Ctx) error {
 	ctx := context.Background()
 	bucketName := c.Params("bucketName")
