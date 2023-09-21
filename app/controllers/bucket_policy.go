@@ -42,8 +42,6 @@ func SetBucketPolicy(c *fiber.Ctx) error {
 	})
 }
 
-// get bucket policy
-
 func GetBucketPolicy(c *fiber.Ctx) error {
 	ctx := context.Background()
 	bucketName := c.Params("bucketName")
