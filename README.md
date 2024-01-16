@@ -1,10 +1,6 @@
 
 # Minio Storage Wrapper
 
-Minio Storage Wrapper is a Golang project that serves requests both as HTTP and in gRPC format. It interacts with Minio for file storage, uses Redis for caching metadata, and Nginx for load balancing. It is designed to be an alternative to cloud-native storage systems, with full compatibility with Amazon S3.
-
-
-
 ## Features
 
 - Minio Storage: Interacts with Minio for file storage.
