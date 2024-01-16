@@ -1,6 +1,9 @@
 package controllers
 
-import "testing"
+import (
+	"github.com/gofiber/fiber/v2"
+	"testing"
+)
 
 func TestGetBucketMetadata(t *testing.T) {
 	type args struct {
