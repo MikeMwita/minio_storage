@@ -1,6 +1,6 @@
 .PHONY: clean critic security lint test build run
 
-APP_NAME = filtronicEDAMS
+APP_NAME = EDAMS
 BUILD_DIR = $(PWD)/build
 MIGRATIONS_FOLDER = $(PWD)/platform/migrations
 DATABASE_URL = postgres://postgres:password@cgapp-postgres/postgres?sslmode=disable
@@ -21,11 +21,6 @@ test: clean critic security lint
 	go test -v -timeout 30s -coverprofile=cover.out -cover ./...
 	go tool cover -func=cover.out
 
-postgres:
-	docker run --name filtronicdb -p 5432:5432 -e POSTGRES_USER=filtronic -e POSTGRES_PASSWORD=secret -d postgres:16beta3
-
-createdb:
-	docker exec -it filtronicdb createdb --username=filtronic --owner=filtronic edms
 
 docker-compose:
 	docker-compose up --build

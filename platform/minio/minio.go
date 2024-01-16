@@ -4,13 +4,13 @@ import (
 	"github.com/minio/minio-go/v7"
 	"github.com/minio/minio-go/v7/pkg/credentials"
 	"log"
+	"os"
 )
 
 func MinioConnection() (*minio.Client, error) {
-	//ctx := context.Background()
-	s := "s3-api.filtronic.co.ke"
-	ak := "Vd2DlMhoe1W4QKbSQDLw"
-	ask := "FTaNk44w4GQIwo2jdv6zyGUL5KiDUHvj9LVyroE3"
+	s := os.Getenv("MINIO_HOST") + ":" + os.Getenv("MINIO_PORT")
+	ak := os.Getenv("MINIO_ACCESSKEY")
+	ask := "MINIO_ACCESSKEY_SECRET"
 	useSSL := true
 	minioClient, errInit := minio.New(s, &minio.Options{
 		Creds:  credentials.NewStaticV4(ak, ask, ""),

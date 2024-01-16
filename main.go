@@ -19,6 +19,7 @@ import (
 	"log"
 	"net"
 	"net/http"
+	"os"
 )
 
 var db *gorm.DB
@@ -39,7 +40,7 @@ func main() {
 }
 
 func initDB() *gorm.DB {
-	dsn := "host=localhost user=filtronic dbname=edms sslmode=disable password=secret"
+	dsn := os.Getenv("CONNECTION_STRING") + " sslmode=disable"
 	db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
 	if err != nil {
 		panic("Failed to connect to the database")

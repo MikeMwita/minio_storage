@@ -1,5 +1,4 @@
 
-# air.toml
 
 [build]
 bin = "main"

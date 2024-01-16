@@ -8,6 +8,7 @@ import (
 	"github.com/gofiber/fiber/v2"
 	"github.com/minio/minio-go/v7"
 	"gorm.io/gorm"
+	"os"
 )
 
 func CreateBucket(c *fiber.Ctx, db *gorm.DB) error {
@@ -31,8 +32,8 @@ func CreateBucket(c *fiber.Ctx, db *gorm.DB) error {
 			"msg":   err.Error(),
 		})
 	}
-	bucketTag := "buck01"
-	uniqueID := "xyz123"
+	bucketTag := os.Getenv("BUCKET_TAG")
+	uniqueID := os.Getenv("UNIQUE_ID")
 
 	// Store metadata in the database
 	bucketMetadata := models.BucketMetadata{

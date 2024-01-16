@@ -13,7 +13,7 @@ import (
 
 func UploadFile(c *fiber.Ctx, db *gorm.DB) error {
 	ctx := context.Background()
-	bucketName := "filtronic"
+	bucketName := c.Params("bucketName")
 	file, err := c.FormFile("fileUpload")
 	if err != nil {
 		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
